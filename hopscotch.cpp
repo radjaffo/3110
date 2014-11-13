@@ -2,7 +2,7 @@
    Jeffrey Dickason
    CSCE 3110.002
    Program 2
-   10/4/14
+   10/4/14 
   */
 
 #include <iostream>
@@ -34,6 +34,8 @@ int main(){
 		element2[i] = "0000";
 	} //for
 
+	//Program description
+	cout <<  << endl << endl << "Hopscotch Hashing C++ program written by Jeffrey Dickason" << endl << "CSCE 3110.002" << endl << "Program 2" << endl <<"10/4/14" << endl;
 	do{							//loop dat menu
 
 
@@ -46,7 +48,7 @@ int main(){
 	cin >> menuChoice;					//take user input
 	switch(menuChoice)
 	{
-		case 1:							//attempt to insert an element into the arrays
+		case 1:			//attempt to insert an element into the arrays
 			cout << "Enter a positive Decimal Value to insert" << endl;
 			cin >> value;
 			while(value <= 0)					//input is INVALID, keep trying 
@@ -64,17 +66,17 @@ int main(){
 				break;
 			}
 
-				cout << "Modded value is " << modValue << endl;			//debug modValue
+			//	cout << "Modded value is " << modValue << endl;			//debug modValue
 				if(element[modValue] == 0)	//bucket empty, inserting into spot
 				{
 					element[modValue] = value;
+					cout << value << " inserted at position " << modValue << endl;
 					hopHash(modValue, element, element2);
 				}
 
 				else
 				{
 					tempMod = modValue;
-					cout << "bucket is occupied, linear probing time" << endl;
 					for(int j = 0; j < 3; j++)
 					{
 						tempMod++; 	//incrementing tempMod
@@ -87,17 +89,18 @@ int main(){
 					if(element[tempMod] == 0)
 						{
 						element[tempMod] = value;
+						cout << value << " inserted at position " << tempMod << endl;
 						hopHash(modValue, element, element2);
 						break;
 						}
 					if(j == 3)
-						cout << "All buckets full, nowhere to insert to :(" << endl;
+						cout << "Error, All buckets full, insert failed" << endl;
 					}
 				}
 
 			break;
 
-		case 2:
+		case 2:		//delete
 			cout << "Enter Decimal Value to be deleted" << endl;
 			cin >> value;
 			while(value <= 0)
@@ -106,17 +109,31 @@ int main(){
 				cin >> value;
 			}
 
-			cout << "Decimal entered is " << value << endl;
+			//cout << "Decimal entered is " << value << endl;
 			modValue = value%17;
-			cout << "Modded value is " << modValue << endl;
-				if(element[modValue] == value)
+			//cout << "Modded value is " << modValue << endl;
+			
+			tempMod = modValue;
+			for(int i=0; i < 4; i++)
+			{
+				if(tempMod == 16 && element[tempMod] != value)	//can't do the end of the table my friend
+						{
+							cout << "Error, hit end of table and delete failed" << endl; //print ERROR
+							break;
+						}
+
+				if(element[tempMod] == value)
 				{
-					element[modValue] = 0;
-					cout << value << " deleted from array" << endl << endl;
+					element[tempMod] = 0;
+					cout << value << " deleted from position " << tempMod << endl;
 					hopHash(modValue, element, element2);
 				}
-				else
-					cout << "delete went wrong" << endl << endl;
+				if(i == 4)
+				{
+					cout << "Error, element not found in buckets, Delete failed" << endl;
+				}
+				tempMod++;
+			}
 			break;
 
 		case 3:
@@ -128,9 +145,9 @@ int main(){
 				cin >> value;
 			}
 
-			cout << "Decimal entered is " << value << endl;
+			//cout << "Decimal entered is " << value << endl;
 			modValue = value%17;
-			cout << "Modded value is " << modValue << endl;
+			//cout << "Modded value is " << modValue << endl;
 				if(element[modValue] == value)
 				{
 					cout << value << " found at index " << modValue << endl;
@@ -143,15 +160,15 @@ int main(){
 							modValue += 1;
 							if(element[modValue] == value)
 							{
-								cout << value << " found at index " << modValue << endl;
+								cout << value << " found at position " << modValue << endl;
 							}
 						}
 
 				}
 			break;
 
-		case 4:
-			cout << "HOPSCOTCH TABLE:" << endl;
+		case 4:		//search
+			cout << "HOPSCOTCH TABLE:" << endl;				//format the table correctly
 			cout << "+------------------------+" << endl;
 			cout << "|   #  |  value  |  hop  |" << endl;
 			cout << "+------------------------+" << endl;
@@ -161,12 +178,12 @@ int main(){
 			cout << "+------------------------+" << endl;
 			break;
 
-		case 5:
+		case 5:		//exit statement
 			quit = 1;
 			cout << "Program Terminated by User..." << endl;
 			break;
 
-		default:
+		default:	//error printing
 			cout <<"Error, incorrect entry" << endl;
 			break;
 	}
@@ -188,11 +205,11 @@ return 0;
 //should be easy to fix this, just dont remember how to pass an int array as a function argument.... Fucccck!
 	void hopHash(int modValue, int element[17], string element2[17])
 	{
-		cout << "Entering hopHash Function" << endl;
+		//cout << "Entering hopHash Function" << endl;
 		string temp = "";
 		int k = modValue + 4;		//temp modvalue looooooper
 		int tempMod;
-		cout << "Entered function, time to partay" << endl;
+		//cout << "Entered function, time to partay" << endl;
 		for(int i=modValue; i < k; i++){	//loop next few array values
 			if(i == 0){				//case 1: bucket is 0, elements are 0,
 				for(int j = 0; j < 4; j++)
@@ -205,11 +222,11 @@ return 0;
 				}
 			break;
 			}
-			if(i > 16)
+			if(i > 16)				//case 2: Hit end of list
 				temp = temp+"0";
-			else{
+			else{					//case 3: legitimate value
 				tempMod = element[i];
-				if(tempMod%17 == modValue){	//lets go a little deeper
+				if(tempMod%17 == modValue){	//check 
 					temp = temp+"1";
 
 				}
