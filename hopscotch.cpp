@@ -35,7 +35,7 @@ int main(){
 	} //for
 
 	//Program description
-	cout <<  << endl << endl << "Hopscotch Hashing C++ program written by Jeffrey Dickason" << endl << "CSCE 3110.002" << endl << "Program 2" << endl <<"10/4/14" << endl;
+	cout << endl << endl << "Hopscotch Hashing C++ program written by Jeffrey Dickason" << endl << "CSCE 3110.002" << endl << "Program 2" << endl <<"10/4/14" << endl;
 	do{							//loop dat menu
 
 
@@ -57,7 +57,7 @@ int main(){
 				cin >> value;					//keep trying until
 			} //while
 			
-			cout << "Decimal entered is " << value << endl;		//debug value statement
+			//cout << "Decimal entered is " << value << endl;		//debug value statement
 			modValue = value%17;			//mod it to check hash index
 			
 			if(modValue == 16 && element[modValue] != 0)	//can't do the end of the table my friend
@@ -150,7 +150,7 @@ int main(){
 			//cout << "Modded value is " << modValue << endl;
 				if(element[modValue] == value)
 				{
-					cout << value << " found at index " << modValue << endl;
+					cout << value << " found at position " << modValue << endl;
 				}
 				else
 				{
