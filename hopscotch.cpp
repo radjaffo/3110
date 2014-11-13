@@ -5,11 +5,13 @@
    10/4/14 
   */
 
-#include <iostream>
-#include <string>
-#include <iomanip>		//we need moar libaraies!
+//essentially this program takes in user input, then mods it, and performs appropriate insert/delete/search functions
 
-using namespace std;
+#include <iostream>		//include libraries
+#include <string>
+#include <iomanip>		//not even sure why i put this one in?
+
+using namespace std;	//so i dont have to type std::cout or whatever
 
 void hopHash(int modValue, int element[17], string element2[17]);
 
@@ -130,13 +132,13 @@ int main(){
 				}
 				if(i == 4)
 				{
-					cout << "Error, element not found in buckets, Delete failed" << endl;
+					cout << "Error, element not found in table, Delete failed" << endl;
 				}
 				tempMod++;
 			}
 			break;
 
-		case 3:
+		case 3:		//search
 			cout << "Enter Decimal Value to search for" << endl;
 			cin >> value;
 			while(value <= 0)
@@ -154,8 +156,8 @@ int main(){
 				}
 				else
 				{
-					cout << value << " not found at original index, checking next 3" << endl;
-					for(int k = 0; k < 3; k++)
+					//cout << value << " not found at original index, checking next 3" << endl;	//debug
+					for(int k = 0; k < 3; k++)		//loop to find it
 						{
 							modValue += 1;
 							if(element[modValue] == value)
@@ -167,7 +169,7 @@ int main(){
 				}
 			break;
 
-		case 4:		//search
+		case 4:		//print
 			cout << "HOPSCOTCH TABLE:" << endl;				//format the table correctly
 			cout << "+------------------------+" << endl;
 			cout << "|   #  |  value  |  hop  |" << endl;
@@ -215,7 +217,7 @@ return 0;
 				for(int j = 0; j < 4; j++)
 				{
 					tempMod = element[j];
-					if(tempMod%17 == modValue && element[j] != 0)
+					if(tempMod%17 == modValue && element[j] != 0)	//if it finds it
 						temp = temp+"1";
 					else
 						temp = temp+"0";
@@ -234,5 +236,5 @@ return 0;
 					temp = temp+"0";
 			}
 		}
-		element2[modValue] = temp;
+		element2[modValue] = temp;		//assign final string to 2nd array
 	}
