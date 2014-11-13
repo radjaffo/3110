@@ -78,6 +78,12 @@ int main(){
 					for(int j = 0; j < 3; j++)
 					{
 						tempMod++; 	//incrementing tempMod
+						if(tempMod == 16 && element[tempMod] != 0)	//can't do the end of the table my friend
+						{
+							cout << "Error, hit end of table and insert failed" << endl; //print ERROR
+							break;
+						}
+
 					if(element[tempMod] == 0)
 						{
 						element[tempMod] = value;
@@ -188,7 +194,17 @@ return 0;
 		int tempMod;
 		cout << "Entered function, time to partay" << endl;
 		for(int i=modValue; i < k; i++){	//loop next few array values
-			
+			if(i == 0){				//case 1: bucket is 0, elements are 0,
+				for(int j = 0; j < 4; j++)
+				{
+					tempMod = element[j];
+					if(tempMod%17 == modValue && element[j] != 0)
+						temp = temp+"1";
+					else
+						temp = temp+"0";
+				}
+			break;
+			}
 			if(i > 16)
 				temp = temp+"0";
 			else{
